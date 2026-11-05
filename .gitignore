@@ -1,0 +1,5 @@
+.DS_Store
+build/
+# Written by Claude's engine on each machine when it loads the plugin
+plugin/.claude-plugin/types/
+plugin/tsconfig.json

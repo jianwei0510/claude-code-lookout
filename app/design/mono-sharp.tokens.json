@@ -1,0 +1,569 @@
+{
+ "name": "Mono Sharp",
+ "version": 1,
+ "color": {
+  "themes": [
+   {
+    "id": "dark",
+    "name": "Dark"
+   },
+   {
+    "id": "light",
+    "name": "Light"
+   }
+  ],
+  "tokens": [
+   {
+    "name": "background",
+    "value": {
+     "dark": "oklch(0.141 0.005 285.823)",
+     "light": "oklch(1 0 0)"
+    },
+    "usage": "Page ground (≈#09090b dark / #ffffff light). Dark is the default theme."
+   },
+   {
+    "name": "foreground",
+    "value": {
+     "dark": "oklch(0.985 0 0)",
+     "light": "oklch(0.141 0.005 285.823)"
+    },
+    "usage": "Primary text and the only emphasis colour, on background, card and muted (≥14:1 in both themes). Also the brand mark square and the main data series."
+   },
+   {
+    "name": "card",
+    "value": {
+     "dark": "oklch(0.21 0.006 285.885)",
+     "light": "oklch(1 0 0)"
+    },
+    "usage": "Section/Card surface (≈#18181b dark, one step above background). In light it equals background; cards separate by a 1px foreground/10 ring."
+   },
+   {
+    "name": "card-foreground",
+    "value": {
+     "dark": "{foreground}",
+     "light": "{foreground}"
+    },
+    "usage": "Text on card."
+   },
+   {
+    "name": "popover",
+    "value": {
+     "dark": "oklch(0.21 0.006 285.885)",
+     "light": "oklch(1 0 0)"
+    },
+    "usage": "Dropdown, select and popover surfaces; pair with shadow-popover and ring-card."
+   },
+   {
+    "name": "popover-foreground",
+    "value": {
+     "dark": "{foreground}",
+     "light": "{foreground}"
+    },
+    "usage": "Text on popover."
+   },
+   {
+    "name": "primary",
+    "value": {
+     "dark": "oklch(0.92 0.004 286.32)",
+     "light": "oklch(0.21 0.006 285.885)"
+    },
+    "usage": "Primary button fill: near-white in dark, near-black in light. One per page. Hover: 80% opacity."
+   },
+   {
+    "name": "primary-foreground",
+    "value": {
+     "dark": "oklch(0.21 0.006 285.885)",
+     "light": "oklch(0.985 0 0)"
+    },
+    "usage": "Text on primary (13.9:1 dark)."
+   },
+   {
+    "name": "secondary",
+    "value": {
+     "dark": "oklch(0.274 0.006 286.033)",
+     "light": "oklch(0.967 0.001 286.375)"
+    },
+    "usage": "Secondary button fill."
+   },
+   {
+    "name": "secondary-foreground",
+    "value": {
+     "dark": "{foreground}",
+     "light": "oklch(0.21 0.006 285.885)"
+    },
+    "usage": "Text on secondary."
+   },
+   {
+    "name": "muted",
+    "value": {
+     "dark": "oklch(0.274 0.006 286.033)",
+     "light": "oklch(0.967 0.001 286.375)"
+    },
+    "usage": "Quiet fills: TabsList and FilterToggle track, progress track, skeleton, ghost-button hover (dark uses muted/50)."
+   },
+   {
+    "name": "muted-foreground",
+    "value": {
+     "dark": "oklch(0.705 0.015 286.067)",
+     "light": "oklch(0.552 0.016 285.938)"
+    },
+    "usage": "Secondary text, labels, meta lines, hints. On background: 7.6:1 dark, 4.8:1 light. On muted in light it is 4.39:1 — below AA for small text; keep muted-foreground off muted fills in light (source value kept exact)."
+   },
+   {
+    "name": "accent",
+    "value": {
+     "dark": "oklch(0.274 0.006 286.033)",
+     "light": "oklch(0.967 0.001 286.375)"
+    },
+    "usage": "Focused menu/select item background."
+   },
+   {
+    "name": "accent-foreground",
+    "value": {
+     "dark": "{foreground}",
+     "light": "oklch(0.21 0.006 285.885)"
+    },
+    "usage": "Text on accent."
+   },
+   {
+    "name": "destructive",
+    "value": {
+     "dark": "oklch(0.704 0.191 22.216)",
+     "light": "oklch(0.577 0.245 27.325)"
+    },
+    "usage": "Errors, delete actions, invalid field borders. Used as text on a 10% (light) / 20% (dark) tint of itself, never as a solid fill. On background 6.9:1 dark / 4.8:1 light; on its own 10% tint in light 4.0:1 — below AA for 12px text (source value kept exact; prefer the dark tint or 14px text)."
+   },
+   {
+    "name": "success",
+    "value": {
+     "dark": "oklch(0.8 0.15 160)",
+     "light": "oklch(0.5 0.13 155)"
+    },
+    "usage": "Done/passed/live status. Text + 10% fill + 40% border, never solid. On its tint: 9.8:1 dark, 4.9:1 light. Always paired with a word or icon."
+   },
+   {
+    "name": "warning",
+    "value": {
+     "dark": "oklch(0.84 0.14 85)",
+     "light": "oklch(0.52 0.13 62)"
+    },
+    "usage": "Needs-attention status. Text + 10% fill + 40% border. On its tint: 10.3:1 dark, 5.0:1 light."
+   },
+   {
+    "name": "border",
+    "value": {
+     "dark": "oklch(1 0 0 / 10%)",
+     "light": "oklch(0.92 0.004 286.32)"
+    },
+    "usage": "Every divider and outline: header bottom, divide-y rows, section rules, outline buttons (light). Decorative contrast only (~1.3–1.5:1)."
+   },
+   {
+    "name": "input",
+    "value": {
+     "dark": "oklch(1 0 0 / 15%)",
+     "light": "oklch(0.92 0.004 286.32)"
+    },
+    "usage": "Input, select, checkbox and outline-button borders; dark controls also fill with input at 30%. Below the 3:1 control-boundary guideline in both themes (shadcn default kept exact) — the label and placeholder carry the affordance."
+   },
+   {
+    "name": "ring",
+    "value": {
+     "dark": "oklch(0.552 0.016 285.938)",
+     "light": "oklch(0.705 0.015 286.067)"
+    },
+    "usage": "Focus: border turns ring and a 1px ring at 50% appears. Weak in light (≈2.6:1 at full strength) — source kept exact; see README Focus."
+   },
+   {
+    "name": "chart-1",
+    "value": {
+     "dark": "oklch(0.871 0.006 286.286)",
+     "light": "oklch(0.871 0.006 286.286)"
+    },
+    "usage": "Lightest chart step. Charts stay grayscale; emphasise the series that matters with foreground."
+   },
+   {
+    "name": "chart-2",
+    "value": {
+     "dark": "oklch(0.552 0.016 285.938)",
+     "light": "oklch(0.552 0.016 285.938)"
+    },
+    "usage": "Chart step 2."
+   },
+   {
+    "name": "chart-3",
+    "value": {
+     "dark": "oklch(0.442 0.017 285.786)",
+     "light": "oklch(0.442 0.017 285.786)"
+    },
+    "usage": "Chart step 3."
+   },
+   {
+    "name": "chart-4",
+    "value": {
+     "dark": "oklch(0.37 0.013 285.805)",
+     "light": "oklch(0.37 0.013 285.805)"
+    },
+    "usage": "Chart step 4."
+   },
+   {
+    "name": "chart-5",
+    "value": {
+     "dark": "oklch(0.274 0.006 286.033)",
+     "light": "oklch(0.274 0.006 286.033)"
+    },
+    "usage": "Darkest chart step."
+   },
+   {
+    "name": "sidebar",
+    "value": {
+     "dark": "oklch(0.21 0.006 285.885)",
+     "light": "oklch(0.985 0 0)"
+    },
+    "usage": "Sidebar surface, when an app has one."
+   },
+   {
+    "name": "sidebar-foreground",
+    "value": {
+     "dark": "{foreground}",
+     "light": "{foreground}"
+    },
+    "usage": "Text on sidebar."
+   },
+   {
+    "name": "sidebar-primary",
+    "value": {
+     "dark": "oklch(0.92 0.004 286.32)",
+     "light": "oklch(0.21 0.006 285.885)"
+    },
+    "usage": "Active sidebar item fill (neutral, not shadcn's default blue)."
+   },
+   {
+    "name": "sidebar-primary-foreground",
+    "value": {
+     "dark": "oklch(0.21 0.006 285.885)",
+     "light": "oklch(0.985 0 0)"
+    },
+    "usage": "Text on sidebar-primary."
+   },
+   {
+    "name": "sidebar-accent",
+    "value": {
+     "dark": "oklch(0.274 0.006 286.033)",
+     "light": "oklch(0.967 0.001 286.375)"
+    },
+    "usage": "Sidebar item hover."
+   },
+   {
+    "name": "sidebar-accent-foreground",
+    "value": {
+     "dark": "{foreground}",
+     "light": "oklch(0.21 0.006 285.885)"
+    },
+    "usage": "Text on sidebar-accent."
+   },
+   {
+    "name": "sidebar-border",
+    "value": {
+     "dark": "{border}",
+     "light": "{border}"
+    },
+    "usage": "Sidebar dividers."
+   },
+   {
+    "name": "sidebar-ring",
+    "value": {
+     "dark": "{ring}",
+     "light": "{ring}"
+    },
+    "usage": "Sidebar focus ring."
+   }
+  ]
+ },
+ "type": {
+  "fonts": [],
+  "families": {
+   "sans": "Inter, ui-sans-serif, system-ui, \"PingFang TC\", \"Noto Sans TC\", \"Microsoft JhengHei\", sans-serif",
+   "heading": "Inter, ui-sans-serif, system-ui, \"PingFang TC\", \"Noto Sans TC\", \"Microsoft JhengHei\", sans-serif"
+  },
+  "groups": [
+   {
+    "name": "Display",
+    "family": "heading",
+    "styles": [
+     {
+      "name": "hero",
+      "fontSize": "48px",
+      "lineHeight": 1.15,
+      "fontWeight": 600,
+      "letterSpacing": "-0.025em",
+      "usage": "Landing hero (text-5xl). 36px below sm.",
+      "sample": "把介面退到後面。"
+     },
+     {
+      "name": "hero-sm",
+      "fontSize": "36px",
+      "lineHeight": 1.15,
+      "fontWeight": 600,
+      "letterSpacing": "-0.025em",
+      "usage": "Hero on phones (text-4xl)."
+     },
+     {
+      "name": "page-title",
+      "fontSize": "30px",
+      "lineHeight": "36px",
+      "fontWeight": 600,
+      "letterSpacing": "-0.025em",
+      "usage": "PageHeader h1 from sm up (text-3xl).",
+      "sample": "專案設定"
+     },
+     {
+      "name": "page-title-sm",
+      "fontSize": "24px",
+      "lineHeight": "32px",
+      "fontWeight": 600,
+      "letterSpacing": "-0.025em",
+      "usage": "PageHeader h1 on phones (text-2xl)."
+     },
+     {
+      "name": "section-title",
+      "fontSize": "20px",
+      "lineHeight": "28px",
+      "fontWeight": 600,
+      "letterSpacing": "-0.025em",
+      "usage": "Page-level section h2 (text-xl).",
+      "sample": "最近的部署"
+     },
+     {
+      "name": "card-title",
+      "fontSize": "16px",
+      "lineHeight": "24px",
+      "fontWeight": 500,
+      "usage": "Section/Card title (text-base font-medium).",
+      "sample": "一般設定"
+     }
+    ]
+   },
+   {
+    "name": "Text",
+    "family": "sans",
+    "styles": [
+     {
+      "name": "lead",
+      "fontSize": "16px",
+      "lineHeight": 1.625,
+      "fontWeight": 400,
+      "usage": "Intro paragraph under a hero, in muted-foreground (text-base/relaxed).",
+      "sample": "一段說明這一頁在做什麼的引言。"
+     },
+     {
+      "name": "body",
+      "fontSize": "14px",
+      "lineHeight": 1.625,
+      "fontWeight": 400,
+      "usage": "Body copy, Section content, Notice text (text-sm/relaxed). Minimum for user-facing paragraphs in Chinese.",
+      "sample": "一般內文用 14px。"
+     },
+     {
+      "name": "body-medium",
+      "fontSize": "14px",
+      "lineHeight": "20px",
+      "fontWeight": 500,
+      "usage": "List-row titles and emphasised body (text-sm font-medium)."
+     },
+     {
+      "name": "control",
+      "fontSize": "12px",
+      "lineHeight": "16px",
+      "fontWeight": 500,
+      "usage": "Buttons, tabs, toggles, badges, menu items (text-xs font-medium).",
+      "sample": "部署"
+     },
+     {
+      "name": "meta",
+      "fontSize": "12px",
+      "lineHeight": 1.625,
+      "fontWeight": 400,
+      "usage": "Inputs, hints, meta lines, captions, card text (text-xs/relaxed), usually muted-foreground.",
+      "sample": "3 分鐘前 · main"
+     }
+    ]
+   }
+  ]
+ },
+ "spacing": {
+  "tokens": [
+   {
+    "name": "control-xs",
+    "value": "24px",
+    "usage": "Button/xs and icon-xs height."
+   },
+   {
+    "name": "control-sm",
+    "value": "28px",
+    "usage": "Button/sm, Toggle/sm and FilterToggle item height."
+   },
+   {
+    "name": "control-md",
+    "value": "32px",
+    "usage": "Default height of Button, Input, Select trigger, TabsList, Toggle."
+   },
+   {
+    "name": "control-lg",
+    "value": "36px",
+    "usage": "Button/lg (hero calls to action)."
+   },
+   {
+    "name": "pad-control-x",
+    "value": "10px",
+    "usage": "Horizontal padding of buttons, inputs, select triggers (px-2.5)."
+   },
+   {
+    "name": "pad-card",
+    "value": "16px",
+    "usage": "Default Card padding (--card-spacing). Card/sm uses 12px."
+   },
+   {
+    "name": "pad-section",
+    "value": "20px",
+    "usage": "Section padding and list-row horizontal padding."
+   },
+   {
+    "name": "pad-row-y",
+    "value": "14px",
+    "usage": "Vertical padding of list rows and setting rows (py-3.5)."
+   },
+   {
+    "name": "gutter",
+    "value": "16px",
+    "usage": "Page side gutter on phones (px-4)."
+   },
+   {
+    "name": "gutter-sm",
+    "value": "24px",
+    "usage": "Page side gutter from sm up (px-6); also gap between PageHeader title and actions."
+   },
+   {
+    "name": "page-pad-y",
+    "value": "32px",
+    "usage": "Page top/bottom padding on phones (py-8); PageHeader bottom margin."
+   },
+   {
+    "name": "page-pad-y-sm",
+    "value": "40px",
+    "usage": "Page top/bottom padding from sm up (py-10)."
+   },
+   {
+    "name": "header-height",
+    "value": "48px",
+    "usage": "Sticky app header height (h-12)."
+   }
+  ]
+ },
+ "radius": {
+  "tokens": [
+   {
+    "name": "radius",
+    "value": "0px",
+    "usage": "Every component: buttons, inputs, cards, badges, menus, tooltips. The system is square."
+   },
+   {
+    "name": "radius-full",
+    "value": "9999px",
+    "usage": "Avatars only."
+   }
+  ]
+ },
+ "shadow": {
+  "tokens": [
+   {
+    "name": "ring-card",
+    "value": {
+     "dark": "0 0 0 1px rgba(250, 250, 250, 0.1)",
+     "light": "0 0 0 1px rgba(9, 9, 11, 0.1)"
+    },
+    "usage": "Card/Section edge (ring-1 ring-foreground/10): takes no layout space."
+   },
+   {
+    "name": "shadow-popover",
+    "value": {
+     "dark": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)",
+     "light": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)"
+    },
+    "usage": "Dropdown, select and popover only (shadow-md), always with ring-card."
+   },
+   {
+    "name": "shadow-pill",
+    "value": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+    "usage": "The FilterToggle selected pill (shadow-xs)."
+   }
+  ]
+ },
+ "layout": {
+  "tokens": [
+   {
+    "name": "container-sm",
+    "value": "448px",
+    "usage": "Login and single-form pages (max-w-md)."
+   },
+   {
+    "name": "container-md",
+    "value": "768px",
+    "usage": "Default page column (max-w-3xl)."
+   },
+   {
+    "name": "container-lg",
+    "value": "896px",
+    "usage": "Wider content pages (max-w-4xl)."
+   },
+   {
+    "name": "container-xl",
+    "value": "1024px",
+    "usage": "Two-column pages (max-w-5xl)."
+   },
+   {
+    "name": "container-wide",
+    "value": "1152px",
+    "usage": "Landing page and the header row (max-w-6xl)."
+   },
+   {
+    "name": "setting-label",
+    "value": "136px",
+    "usage": "Label column of SettingRow from sm up (8.5rem)."
+   }
+  ]
+ },
+ "opacity": {
+  "tokens": [
+   {
+    "name": "tone-fill",
+    "value": "0.1",
+    "usage": "Status tint behind success/warning/destructive text (bg-tone/10)."
+   },
+   {
+    "name": "tone-border",
+    "value": "0.4",
+    "usage": "Status border (border-tone/40)."
+   },
+   {
+    "name": "primary-hover",
+    "value": "0.8",
+    "usage": "Primary button hover (bg-primary/80)."
+   },
+   {
+    "name": "disabled",
+    "value": "0.5",
+    "usage": "Disabled controls."
+   },
+   {
+    "name": "header-glass",
+    "value": "0.85",
+    "usage": "Sticky header background (bg-background/85 with backdrop-blur-sm)."
+   }
+  ]
+ },
+ "meta": {
+  "source": "code",
+  "repo": "local: ~/Personal/2pick1-app (packages/ui) via mono-sharp-kit",
+  "synced": "2026-10-23"
+ }
+}

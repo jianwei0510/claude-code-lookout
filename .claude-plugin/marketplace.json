@@ -1,0 +1,11 @@
+{
+  "name": "claude-code-lookout",
+  "owner": { "name": "jianwei0510", "url": "https://github.com/jianwei0510" },
+  "plugins": [
+    {
+      "name": "lookout",
+      "source": "./plugin",
+      "description": "A switch above the chat box (and /lookout) that opens or closes the Lookout window."
+    }
+  ]
+}

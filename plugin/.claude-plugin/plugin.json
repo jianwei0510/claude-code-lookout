@@ -1,0 +1,9 @@
+{
+  "name": "lookout",
+  "version": "1.0.0",
+  "description": "A switch above the chat box (and /lookout) that opens or closes the Lookout window, which shows which Claude Code sessions need you.",
+  "author": { "name": "jianwei0510", "url": "https://github.com/jianwei0510" },
+  "license": "MIT",
+  "homepage": "https://github.com/jianwei0510/claude-code-lookout",
+  "types": "./types/index.d.ts"
+}
