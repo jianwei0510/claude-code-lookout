@@ -26,7 +26,7 @@ other windows and sorts every session into three groups:
 | **執行中** · Working | Sessions that are running right now. |
 | **閒置** · Idle | Finished, nothing waiting for you. |
 
-It chimes softly **only** when a session starts needing you, and lets you answer a session's
+It chimes softly when a session starts needing you, or finishes a long run, and lets you answer a session's
 suggested replies straight from the window — no switching chats.
 
 > Lookout is an independent, unofficial project. It is not made by, affiliated with, or
@@ -60,8 +60,10 @@ All screenshots use made-up demo sessions.
   box, focus in the box, text matches) and stops if any fails, so it never sends to the wrong place
   or on top of your draft. Each question can only be answered once.
 - **Click a row to open that chat** in Claude.
-- **A soft chime, only when it matters** — two low wooden notes when a session starts needing you,
-  nothing else. Mute it in the menu: 顯示 → 提示音.
+- **A soft chime, only when it matters** — two low wooden notes when a session starts needing you;
+  one quieter note when a session that ran for 2 minutes or more stops without asking anything
+  (it may have reached a point where you should review). Quick back-and-forth stays silent.
+  Mute it in the menu: 顯示 → 提示音.
 - **Doesn't forget** — Claude may close idle chats in the background (overnight, for example).
   If one was still waiting on you, Lookout keeps showing it until you deal with it.
   Right-click to dismiss it.
@@ -206,7 +208,7 @@ See [step 4](#4-allow-replies-from-the-window-optional).
 Right-click the row → 不再顯示這個 session.
 
 **No sound** — check 顯示 → 提示音 is ticked. Lookout only chimes when a session *starts*
-needing you, not for every change.
+needing you, or stops after running 2 minutes or more — not for every change.
 
 ## How it works
 
@@ -225,6 +227,7 @@ It never writes to them.
 app/        the macOS app (Swift, AppKit) — Lookout.swift, Logo.swift, design tokens, sounds
 plugin/     the Claude Code plugin: the switch row and /lookout
 docs/       screenshots and DEVELOPMENT.md
+tests/      chime_drive.py: plays fake sessions through every state change, checks which ones chime
 install.sh  build and install          uninstall.sh  remove everything
 ```
 

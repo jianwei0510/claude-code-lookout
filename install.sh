@@ -52,11 +52,11 @@ cp "$BUILD/lookout" "$DEST/lookout.new"
 mv -f "$DEST/lookout.new" "$DEST/lookout"
 cp app/sounds/*.wav "$DEST/sounds/"
 
-# Prove the install, rather than assume it: the program runs and both sounds are there.
+# Prove the install, rather than assume it: the program runs and all three sounds are there.
 [ -x "$DEST/lookout" ] || fail "$DEST/lookout is not executable."
 sounds=$(find "$DEST/sounds" -name '*.wav' | wc -l | tr -d ' ')
-[ "$sounds" -eq 2 ] || fail "Expected 2 sound files in $DEST/sounds, found $sounds."
-say "Installed: the program and $sounds of 2 sounds."
+[ "$sounds" -eq 3 ] || fail "Expected 3 sound files in $DEST/sounds, found $sounds."
+say "Installed: the program and $sounds of 3 sounds."
 
 if [ -n "$was_running" ]; then
   nohup "$DEST/lookout" >/dev/null 2>&1 &

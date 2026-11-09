@@ -19,7 +19,7 @@ Lookout 放在其他視窗旁邊，把每個 session 分成三區：
 | **執行中** | 正在跑的 session |
 | **閒置** | 跑完了，沒有東西在等你 |
 
-它**只在**某個 session 開始需要你的那一刻輕輕響一聲；session 給了建議的回覆時，
+某個 session 開始需要你、或跑了很久之後停下來時，它會輕輕響一聲；session 給了建議的回覆時，
 可以直接在視窗裡按，不用切換聊天。
 
 > Lookout 是獨立的非官方專案，不是 Anthropic 製作，與 Anthropic 沒有關係，也沒有得到其背書。
@@ -52,7 +52,8 @@ Lookout 放在其他視窗旁邊，把每個 session 分成三區：
   按 Enter 之前先確認四件事：開的是對的聊天、輸入框是空的、焦點在輸入框上、貼上的字完全一致。
   任何一項不對就停下來，不會送錯地方，也不會把你打到一半的草稿一起送出去。同一個問題只能回一次
 - **點一下那一列**，就在 Claude 裡打開那個聊天
-- **只在需要時響**：某個 session 開始需要你時，響兩聲低沉的木琴，其他時候都安靜。
+- **只在需要時響**：某個 session 開始需要你時，響兩聲低沉的木琴；跑了 2 分鐘以上、沒問你東西就停下來時，
+  響一聲更輕的低音（它可能做到一個段落、在等你 review）。短的來回不響。
   可以在選單「顯示 → 提示音」關掉
 - **不會忘記**：Claude 可能會在背景結束閒置的聊天（例如過夜之後）。
   如果那個聊天還在等你，Lookout 會一直顯示它，直到你處理為止。按右鍵可以不再顯示
@@ -177,7 +178,7 @@ claude plugin marketplace remove claude-code-lookout
 
 **已經關掉的 session 一直出現**：Lookout 會記住還在等你的 session。右鍵那一列 → 不再顯示這個 session。
 
-**沒有聲音**：確認「顯示 → 提示音」有打勾。Lookout 只在 session **開始**需要你的那一刻響，不是每次變化都響。
+**沒有聲音**：確認「顯示 → 提示音」有打勾。Lookout 只在 session **開始**需要你、或跑了 2 分鐘以上才停下的那一刻響，不是每次變化都響。
 
 ## 運作原理
 
@@ -195,6 +196,7 @@ Lookout 每兩秒看一次。對話紀錄可能有幾百 MB，所以第一次只
 app/        macOS app（Swift、AppKit）：Lookout.swift、Logo.swift、design tokens、音效
 plugin/     Claude Code 外掛：對話框上方的開關列與 /lookout
 docs/       截圖與 DEVELOPMENT.md
+tests/      chime_drive.py：用假 session 走過每一種狀態變化，檢查哪些會響
 install.sh  編譯並安裝          uninstall.sh  全部移除
 ```
 

@@ -596,18 +596,56 @@ func noteText(_ row: SessionRow) -> String {
 ///   - 等你回覆、有問題 → 往上一個音（attention）
 /// 已經在「需要你」裡面換狀態（例如有問題 → 等你回覆）不再出聲：它本來就在等你。
 /// 第一次讀到的 session 沒有「之前」，所以開 app 的那一刻不會一口氣響一串。
-func onTransition(_ row: SessionRow, from: Kind) {
-    guard group(row.kind) == .attention, group(from) != .attention, row.isLoaded else { return }
-    ChimePlayer.shared.request(row.kind == .atDialog ? .stuck : .attention)
+///
+/// 2026-11-09 使用者補了兩條：
+///   - **跑完卻沒問東西，不一定是結束** —— 可能做到一個段落、等你 review，只是沒寫成問題。
+///     所以這一輪跑了 doneChimeAfter 以上才停下的，放一聲最輕的「完成」（done）。
+///     短的來回你多半正看著；跑久的你多半已經切走了。
+///   - **沒見過的 status 不出聲**：照樣列在「需要你」讓你看到，但它可能只是新版本一個短暫的狀態。
+///     它也不算「已經在等你」—— 從它變成真的問題時照樣要響。
+///
+/// workedFor：這一輪從開始跑到現在多久（中間卡過對話框也算同一輪）；不知道是 nil。
+func onTransition(_ row: SessionRow, from: Kind, workedFor: TimeInterval?) {
+    guard row.isLoaded else { return }
+    switch group(row.kind) {
+    case .attention:
+        let wasWaiting = group(from) == .attention && from != .unknown
+        guard row.kind != .unknown, !wasWaiting else { return }
+        ChimePlayer.shared.request(row.kind == .atDialog ? .stuck : .attention)
+    case .idle:
+        // 從對話框直接停下（你按了拒絕）不算：那一刻你就在它面前。
+        guard from == .working || from == .unknown,
+              let workedFor, workedFor >= doneChimeAfter else { return }
+        ChimePlayer.shared.request(.done)
+    case .running:
+        return
+    }
+}
+
+/// 跑完而沒問你東西時，這一輪要跑多久以上才響「完成」。
+/// 量過使用者 14 天的 transcript：沒問東西就停下的 160 輪裡，≥ 2 分鐘的 61 輪（約每天 4 次），
+/// 中位數 78 秒 —— 所以 2 分鐘大約把「你在旁邊等」和「你已經去做別的」分開。
+let doneChimeAfter: TimeInterval = 120
+
+/// 這個分類之後再變回 .working，還算同一輪（不重新計時）。
+/// 卡在對話框 → 你按允許 → 繼續跑，是同一件事做到一半。
+func continuesTurn(_ kind: Kind?) -> Bool {
+    kind == .working || kind == .atDialog || kind == .unknown
 }
 
 // MARK: - 提示音
 
 /// 數字越大越要緊：同一次更新裡有好幾個 session 一起進來，只放最要緊的那一個。
 enum Chime: Int, CaseIterable {
-    case attention = 1, stuck = 2
+    case done = 1, attention = 2, stuck = 3
     /// 低木琴（sounds/synth_soft.py 產生；試聽過四組柔和版之後選的）
-    var file: String { self == .stuck ? "woodlow-urgent.wav" : "woodlow-attention.wav" }
+    var file: String {
+        switch self {
+        case .done:      return "woodlow-done.wav"       // 一個低音，三個裡最小聲
+        case .attention: return "woodlow-attention.wav"  // 往上一個大三度
+        case .stuck:     return "woodlow-urgent.wav"     // 同一個音敲兩下
+        }
+    }
 }
 
 final class ChimePlayer {
@@ -2430,6 +2468,9 @@ final class Monitor: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     private var lastRows: [SessionRow] = []
     private var lastKind: [String: Kind] = [:]
+    /// 每個 session 這一輪是什麼時候開始跑的。statusUpdatedAt 每次換狀態都會更新
+    /// （卡過對話框再回來就變了），所以這裡自己記「這一輪的起點」。
+    private var turnStarted: [String: Date] = [:]
     private var signature: String?
     private var rowViews: [String: RowView] = [:]
     private let scanQueue = DispatchQueue(label: "transcript-scan", qos: .utility)
@@ -2675,11 +2716,20 @@ final class Monitor: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private func render(_ rows: [SessionRow]) {
         lastRows = rows
         for row in rows {
-            if let was = lastKind[row.key], was != row.kind {
-                onTransition(row, from: was)
+            let was = lastKind[row.key]
+            // 新的一輪：從閒置或問題那邊開始跑，或第一次看到它就在跑。
+            if row.kind == .working, turnStarted[row.key] == nil || !continuesTurn(was) {
+                turnStarted[row.key] = row.since
             }
+            if let was, was != row.kind {
+                let worked = turnStarted[row.key].map { row.since.timeIntervalSince($0) }
+                onTransition(row, from: was, workedFor: worked)
+            }
+            // 停下來了（跑完或問你），這一輪結束。
+            if !continuesTurn(row.kind) { turnStarted[row.key] = nil }
         }
         lastKind = Dictionary(rows.map { ($0.key, $0.kind) }, uniquingKeysWith: { a, _ in a })
+        turnStarted = turnStarted.filter { lastKind[$0.key] != nil }
 
         var counts: [Group: Int] = [:]
         for row in rows { counts[group(row.kind), default: 0] += 1 }
